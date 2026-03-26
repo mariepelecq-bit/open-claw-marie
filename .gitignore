@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+*.log
+credentials/
+analytics/credentials/
+scripts/
