@@ -48,12 +48,19 @@ def get_new_subscribers():
 
 def get_total_newsletter():
     headers = {'X-API-Key': API_KEY}
-    resp = requests.get('https://api.systeme.io/api/tags', headers=headers)
-    tags = resp.json().get('items', [])
-    for tag in tags:
-        if tag['name'] == NEWSLETTER_TAG:
-            return tag.get('contactsCount', '?')
-    return '?'
+    total = 0
+    page = 1
+    while True:
+        resp = requests.get(
+            f'https://api.systeme.io/api/contacts?limit=100&page={page}&tagName={NEWSLETTER_TAG}',
+            headers=headers
+        )
+        items = resp.json().get('items', [])
+        total += len(items)
+        if len(items) < 100:
+            break
+        page += 1
+    return total
 
 def run():
     today = datetime.now()
