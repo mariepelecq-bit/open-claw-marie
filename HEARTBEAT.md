@@ -17,11 +17,16 @@ Si non → lancer la routine complète :
 - Ton : direct, ajoute valeur ou question concrète, jamais de tirets longs (—)
 - Poster sans validation
 
-### 3. Connexions (15 profils) — envoyer directement
-- Prendre les 15 meilleurs contacts en stage "contact" du pipeline (hotScore desc)
+### 3. Connexions (max 20/jour total) — envoyer directement
+- Vérifier d'abord `bereach_get_limits` → champ `connection_request` (used/limit)
+- Calculer le quota restant : max(0, 20 - déjà envoyées aujourd'hui)
+- Si quota = 0 → passer cette étape
+- Prendre les profils en stage "contact" du pipeline dans la limite du quota restant (hotScore desc)
 - Campaign : ECmDeXs1I2fk
 - Sans note de connexion
 - Envoyer directement
+- Si pas assez de contacts non connectés, scraper de nouveaux profils ICP avant d'envoyer
+- **IMPORTANT** : 20/jour = limite absolue, sessions manuelles incluses
 
 ### 4. DMs aux nouvellement connectés
 - Chercher contacts outreachStatus = "connected" sans DM envoyé
@@ -35,8 +40,8 @@ Si non → lancer la routine complète :
   → X likes posés
   → X commentaires publiés
   → X demandes de connexion envoyées
-  → X DMs en draft à valider
-  [lien drafts]"
+  → X DMs envoyés"
+- NE PAS envoyer de rappels de publication Instagram ou blog — Marie gère son contenu elle-même
 
 ### Après la routine
 - Sauvegarder la date du jour dans state key `linkedin-daily` (ex: {"lastRun": "2026-03-27"})
